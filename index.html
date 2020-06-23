@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Selection Sort</title>
+
+  <meta name="description"
+    content="This applet allows the user to covert temperature values between centigrade and fahrenheit">
+  <meta name="author" content="wjb">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="styles/narrow-style.css" media="screen and (max-width: 515px)"/>-->
+</head>
+
+<body>
+  <header>
+    <h1>Selection Sort Visualization</h1>
+  </header>
+  <div>
+    <p></p>
+  </div>
+
+  <script>
+
+    const div = document.querySelector('div');
+
+
+    /*(var displayArray = function(array) {
+    textFont(createFont("monospace"), 12);
+    };*/
+
+    var swap = function (array, firstIndex, secondIndex) {
+      var temp = array[firstIndex];
+      array[firstIndex] = array[secondIndex];
+      array[secondIndex] = temp;
+    };
+
+    var indexOfMinimum = function (array, startIndex) {
+
+      var minValue = array[startIndex];
+      var minIndex = startIndex;
+      for (var i = minIndex + 1; i < array.length; i++) {
+        if (array[i] < minValue) {
+          minIndex = i;
+          minValue = array[i];
+        }
+      }
+      return minIndex;
+
+    };
+
+    var selectionSort = function (array) {
+      var minIndex;
+
+      for (var startIndex = 0; startIndex < array.length; startIndex++) {
+        const para = document.createElement('p');
+        para.textContent = array;
+        div.appendChild(para);
+        minIndex = indexOfMinimum(array, startIndex);
+        swap(array, startIndex, minIndex);
+
+      }
+    };
+
+
+    var array = [22, 11, 99, 88, 9, 7, 42];
+    selectionSort(array);
+
+    //Start second array
+    var swap = function (array, firstIndex, secondIndex) {
+      var temp = array[firstIndex];
+      array[firstIndex] = array[secondIndex];
+      array[secondIndex] = temp;
+    };
+
+    var indexOfMinimum = function (array, startIndex) {
+
+      var minValue = array[startIndex];
+      var minIndex = startIndex;
+      for (var i = minIndex + 1; i < array.length; i++) {
+        if (array[i] > minValue) {
+          minIndex = i;
+          minValue = array[i];
+        }
+      }
+      return minIndex;
+
+    };
+
+    var selectionSort = function (array) {
+      var minIndex;
+
+      for (var startIndex = 0; startIndex < array.length; startIndex++) {
+        const para = document.createElement('p');
+        para.textContent = array;
+        div.appendChild(para);
+        minIndex = indexOfMinimum(array, startIndex);
+        swap(array, startIndex, minIndex);
+
+      }
+    };
+
+
+    var array = [22, 11, 99, 88, 9, 7, 42];
+    selectionSort(array);
+  </script>
+</body>
+
+</html>
