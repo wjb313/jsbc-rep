@@ -1,0 +1,608 @@
+/* General baseline settings*/
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@viewport {
+  width: device-width;
+  zoom: 1;
+}
+
+/* Define standard HTML element settings */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+div {
+  height: 100%;
+  position: relative;
+  top: 0px;
+}
+
+h1 {
+  padding: 20px;
+  margin-bottom: 20px;
+  animation: landHead 45s linear infinite;
+}
+
+h3,
+h4 {
+  color: whitesmoke;
+}
+
+p {
+  color: whitesmoke;
+}
+
+/* Define content in order of appearance */
+
+/* Define all styles for the landing page */
+.landPage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 300px;
+  flex-grow: 1;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fcb1df;
+  animation: landBack 45s linear infinite;
+}
+
+.landPageDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 2 0 400px;
+}
+
+.landPageDesc > h3,
+h4 {
+  text-align: justify;
+  max-width: 30vw;
+  flex-basis: 50px;
+  align-self: center;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.redR {
+  -webkit-animation: ccRedR 8s steps(9) infinite;
+  -moz-animation: ccRedR 8s steps(9) infinite;
+  -o-animation: ccRedR 8s steps(9) infinite;
+  -ms-animation: ccRedR 8s steps(9) infinite;
+  animation: ccRedR 8s steps(9) infinite;
+}
+
+.redE {
+  -webkit-animation: ccRedE 8s steps(9) infinite;
+  -moz-animation: ccRedE 8s steps(9) infinite;
+  -o-animation: ccRedE 8s steps(9) infinite;
+  -ms-animation: ccRedE 8s steps(9) infinite;
+  animation: ccRedE 8s steps(9) infinite;
+}
+
+.redD {
+  -webkit-animation: ccredD 8s steps(9) infinite;
+  -moz-animation: ccRedD 8s steps(9) infinite;
+  -o-animation: ccRedD 8s steps(9) infinite;
+  -ms-animation: ccRedD 8s steps(9) infinite;
+  animation: ccRedD 8s steps(9) infinite;
+}
+
+#launchBtn {
+  width: 150px;
+  padding: 10px;
+  background-color: #cfe7e4;
+  color: #7c7371;
+  border: 2px solid #8dccc4;
+  border-radius: 50px;
+  font-size: 15px;
+  overflow: hidden;
+  transition: 1s;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#launchBtn:hover {
+  text-indent: 0;
+  background: #55706d;
+  color: #ffe8a3;
+  width: 200px;
+  border: 5px solid #8dccc4;
+  border-radius: 200px;
+  box-shadow: 3px 3px 2px rgba(black, 0.5);
+}
+
+.landPageLaunch {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.landPageLaunch > h3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  max-width: 35vw;
+  flex-basis: 100px;
+  align-self: center;
+}
+
+/* Define all styles for the game-play page */
+
+.gamePageWrapper {
+  display: none;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*align-content: space-around;*/
+  background: radial-gradient(
+    circle,
+    rgba(216, 191, 216, 1) 0%,
+    rgb(126, 111, 118) 58%,
+    rgb(40, 5, 77) 100%
+  );
+}
+
+.gamePage {
+  height: 85vh;
+  background-color: salmon;
+  display: none;
+  grid-template-columns: repeat(7, 65px);
+  grid-template-rows: repeat(8, 65px);
+  grid-template-areas:
+    ". header header header header header ."
+    ". main1 main2 main3 main4 main5 ."
+    ". main6 main7 main8 main9 main10 ."
+    ". main11 main12 main13 main14 main15 ."
+    ". main16 main17 main18 main19 main20 ."
+    ". main21 main22 main23 main24 main25 ."
+    ". main26 main27 main28 main29 main30 ."
+    ". result result result result result .";
+  grid-gap: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 7px 9px 5px -5px rgba(40, 5, 77, 0.75);
+  -moz-box-shadow: 7px 9px 5px -5px rgba(40, 5, 77, 0.75);
+  box-shadow: 7px 9px 5px -5px rgba(40, 5, 77, 0.75);
+}
+
+.gamePageHeader {
+  color: whitesmoke;
+  font-weight: 500px;
+  grid-area: header;
+  text-align: center;
+}
+
+#number1 {
+  grid-area: main1;
+}
+
+#number2 {
+  grid-area: main2;
+}
+
+#number3 {
+  grid-area: main3;
+}
+
+#number4 {
+  grid-area: main4;
+}
+
+#number5 {
+  grid-area: main5;
+}
+
+#number6 {
+  grid-area: main6;
+}
+
+#number7 {
+  grid-area: main7;
+}
+
+#number8 {
+  grid-area: main8;
+}
+
+#number9 {
+  grid-area: main9;
+}
+
+#number10 {
+  grid-area: main10;
+}
+
+#number11 {
+  grid-area: main11;
+}
+
+#number12 {
+  grid-area: main12;
+}
+
+#number13 {
+  grid-area: main13;
+}
+
+#number14 {
+  grid-area: main14;
+}
+
+#number15 {
+  grid-area: main15;
+}
+
+#number16 {
+  grid-area: main16;
+}
+
+#number17 {
+  grid-area: main17;
+}
+
+#number18 {
+  grid-area: main18;
+}
+
+#number19 {
+  grid-area: main19;
+}
+
+#number20 {
+  grid-area: main20;
+}
+
+#number21 {
+  grid-area: main21;
+}
+
+#number22 {
+  grid-area: main22;
+}
+
+#number23 {
+  grid-area: main23;
+}
+
+#number24 {
+  grid-area: main24;
+}
+
+#number25 {
+  grid-area: main25;
+}
+
+#number26 {
+  grid-area: main26;
+}
+
+#number27 {
+  grid-area: main27;
+}
+
+#number28 {
+  grid-area: main28;
+}
+
+#number29 {
+  grid-area: main29;
+}
+
+#number30 {
+  grid-area: main30;
+}
+
+.numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: thistle;
+  border: 2px solid rgb(248, 246, 246);
+  border-radius: 5px;
+  -webkit-box-shadow: 4px 4px 13px -5px rgba(110, 88, 110, 1);
+  -moz-box-shadow: 4px 4px 13px -5px rgba(110, 88, 110, 1);
+  box-shadow: 4px 4px 13px -5px rgba(110, 88, 110, 1);
+  cursor: pointer;
+  text-align: center;
+}
+
+.numbers:hover {
+  transform: scale(1.1);
+}
+
+.numbers:active {
+  transform: translateZ(10px);
+  transition: 0.1s ease-in-out;
+  -webkit-box-shadow: 4px 4px 13px -5px rgb(77, 61, 77);
+  -moz-box-shadow: 4px 4px 13px -5px rgb(77, 61, 77);
+  box-shadow: 4px 4px 13px -5px rgb(77, 61, 77);
+}
+
+.guessTracker {
+  display: flex;
+  color: whitesmoke;
+  grid-area: result;
+  font-size: 25px;
+  text-shadow: 4px 4px rgba(105, 93, 105, 0.493);
+  justify-content: center;
+  align-content: center;
+}
+
+/* Define all styles for the game-win page */
+
+.winPage {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50vh;
+  text-align: center;
+  animation: 0.5s rattle 1.3s;
+}
+
+#winPageCorrect {
+  color: rgb(255, 230, 0);
+  font-size: 100px;
+  font-weight: bold;
+  -webkit-text-stroke: 2px rgb(80, 72, 0);
+  height: 200px;
+  width: 50vw;
+  line-height: 200px;
+  animation: 1s ease-in correctSlam forwards;
+}
+
+#winPageGuess {
+  font-size: 40px;
+  color: rgb(65, 65, 65);
+  opacity: 0;
+  animation: 2s guessFadeIn 2s forwards;
+}
+
+#resetBtn {
+  display: block;
+  opacity: 0;
+  width: 100px;
+  padding: 20px;
+  background-color: rgb(255, 230, 0);
+  color: #3a3534;
+  border: 2px solid rgb(80, 72, 0);
+  border-radius: 50px;
+  font-size: 20px;
+  transition: 0.75s;
+  cursor: pointer;
+}
+
+#resetBtn:hover {
+  transform: scale(125%);
+}
+
+/* Define all @keyframes below in the order in which they are applied above*/
+
+@keyframes landHead {
+  0% {
+    color: #3b3a39;
+    -webkit-text-stroke: 1.5px transparent;
+  }
+
+  50% {
+    color: #fcb1df;
+    -webkit-text-stroke: 1.5px white;
+  }
+
+  100% {
+    color: #3b3a39;
+    -webkit-text-stroke: 1.5px transparent;
+  }
+}
+
+@keyframes landBack {
+  0% {
+    background-color: #fcb1df;
+  }
+
+  50% {
+    background-color: #3b3a39;
+  }
+
+  100% {
+    background-color: #fcb1df;
+  }
+}
+
+@keyframes ccRedR {
+  0% {
+    color: red;
+  }
+
+  20% {
+    color: red;
+  }
+  20.00001% {
+    color: white;
+  }
+  40% {
+    color: white;
+  }
+  40.00001% {
+    color: white;
+  }
+  60% {
+    color: white;
+  }
+  60.00001% {
+    color: white;
+  }
+  65% {
+    color: white;
+  }
+  65.00001% {
+    color: red;
+  }
+  80% {
+    color: red;
+  }
+  80.00001% {
+    color: white;
+  }
+  100% {
+    color: white;
+  }
+}
+
+@keyframes ccRedE {
+  0% {
+    color: white;
+  }
+  20% {
+    color: white;
+  }
+  20.00001% {
+    color: red;
+  }
+  40% {
+    color: red;
+  }
+  40.00001% {
+    color: white;
+  }
+  60% {
+    color: white;
+  }
+  60.00001% {
+    color: white;
+  }
+  65% {
+    color: white;
+  }
+  65.00001% {
+    color: red;
+  }
+  80% {
+    color: red;
+  }
+  80.00001% {
+    color: white;
+  }
+  100% {
+    color: white;
+  }
+}
+
+@keyframes ccRedD {
+  0% {
+    color: white;
+  }
+  20% {
+    color: white;
+  }
+  20.00001% {
+    color: white;
+  }
+  40% {
+    color: white;
+  }
+  40.00001% {
+    color: red;
+  }
+  60% {
+    color: red;
+  }
+  60.00001% {
+    color: white;
+  }
+  65% {
+    color: white;
+  }
+  65.00001% {
+    color: red;
+  }
+  80% {
+    color: red;
+  }
+  80.00001% {
+    color: white;
+  }
+  100% {
+    color: white;
+  }
+}
+
+@keyframes correctSlam {
+  0% {
+    transform: scale(10, 10);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes rattle {
+  0% {
+    margin-top: 0;
+    margin-left: 0;
+  }
+  10% {
+    margin-top: -5px;
+    margin-left: 0;
+  }
+  20% {
+    margin-top: 0;
+    margin-left: -5px;
+  }
+  30% {
+    margin-top: 5px;
+    margin-left: 0;
+  }
+  40% {
+    margin-top: 0;
+    margin-left: 5px;
+  }
+  50% {
+    margin-top: -2px;
+    margin-left: 0;
+  }
+  60% {
+    margin-top: 0;
+    margin-left: -2px;
+  }
+  70% {
+    margin-top: 2px;
+    margin-left: 0;
+  }
+  80% {
+    margin-top: 0;
+    margin-left: 2px;
+  }
+  90% {
+    margin-top: -1px;
+    margin-left: 0;
+  }
+  100% {
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
+
+@keyframes guessFadeIn {
+  to {
+    opacity: 1;
+  }
+}
