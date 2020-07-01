@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Random Number Guessing Game</title>
+
+    <meta
+      name="description"
+      content="This applet asks the user to guess a randomly generated number between zero and thirty"
+    />
+    <meta name="author" content="wjb" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+          *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      @viewport {
+        width: device-width;
+        zoom: 1;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        /*background: red no-repeat center center fixed;
+        transition: background 1s ease-in;*/
+      }
+
+      header {
+        /*border-top: 2px solid #7a7966;
+          border-bottom: 2px ridge #7a7966;*/
+        padding: 30px 0 30px 0;
+        --x:
+        background-image: radial-gradient(circle at var(--x) var(--y),  #2f00ff, #0099ff, #00fff2, #00ff88);
+        -webkit-text-stroke: 0.75px #00ff88;
+        color: whitesmoke;
+        text-align: center;
+      }
+
+      div {
+        /*width: 100vw;
+        height: 100vh;*/
+        height: 100%;
+        position: relative;
+        top: 0px;
+      }
+
+      p {
+        color: rgb(241, 11, 11);
+        text-align: center;
+      }
+
+      .landpage {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 50vh;
+        text-align: center;
+        border: 2px solid pink;
+      }
+
+      .gamepage {
+        display: grid;
+        grid-template-columns: repeat(7, 80px);
+        grid-template-rows: repeat(8, 80px);
+        grid-template-areas:
+        '. header header header header header .'
+        '. main main main main main .'
+        '. main main main main main .'
+        '. main main main main main .'
+        '. main main main main main .'
+        '. main main main main main .'
+        '. main main main main main .'
+        '. . result result result . .';
+      }
+
+      .winpage {
+        height: 50vh;
+        text-align: center;
+        display: none;
+        border: 2px solid red;
+      }
+
+      #launch {
+        width: 150px;
+        padding: 10px;
+        margin: 20px;
+        background-color: #cfe7e4;
+        color: #7c7371;
+        border: 5px solid transparent;
+        border-radius: 50px;
+        font-size: 15px;
+        overflow: hidden;
+        transition: 1s;
+        white-space: nowrap;
+      }
+
+      #launch:hover {
+        text-indent: 0;
+        background: #55706d;
+        color: #ffe8a3;
+        width: 200px;
+        border: 5px solid #8dccc4;
+        border-radius: 200px;
+        box-shadow: 3px 3px 2px rgba(black, 0.5);
+      }
+
+
+
+      /* .numbers {
+        grid-area: main;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Random Number Guessing Game</h1>
+    </header>
+    <div class="gamepage"></div>
+    <div class="tracker"></div>
+    <div class="winpage"></div>
+    <script>
+      // Define constants for manipulating DOM
+
+      const gameContainer = document.querySelector(".gamepage");
+      const trackerContainer = document.querySelector(".tracker");
+      const winContainer = document.querySelector(".winpage");
+      const btnLaunch = document.querySelector("#launch");
+      //const resetBtn = document.createElement("button");
+
+      // Define function for populating grid with number range
+      const range = function (start, end) {
+        for (i = start; i <= end; i++) {
+          const gridBox = document.createElement("p");
+          gridBox.textContent = i;
+          gridBox.className = "numbers";
+          gameContainer.appendChild(gridBox);
+        }
+      };
+
+      range(1, 30);
+      let randomNumber;
+      // Define function for generating random number
+      const generateNumber = function (maxNum, minNum) {
+        randomNumber = Math.floor(
+          Math.random() * (maxNum - minNum + 1) + minNum
+        );
+        console.log(randomNumber);
+      };
+
+      btnLaunch.addEventListener("click", function () {
+        generateNumber(1, 30);
+        gameContainer.style.display = "grid";
+      });
+
+      // Define event handler when clicking a number
+      // let guessTracker = 0;
+      // gameContainer.addEventListener("click", function (e) {
+      //   let guess = e.target;
+      //   let guessNumber = parseInt(guess.textContent);
+      //   const guesses = document.createElement("p");
+      //   const guesses2 = document.createElement("p");
+
+      //   if (guessNumber === randomNumber) {
+      //     guess.style.color = "green";
+      //     guessTracker++;
+      //     while (trackerContainer.firstChild) {
+      //       trackerContainer.removeChild(trackerContainer.firstChild);
+      //     }
+      //     gameContainer.style.display = "none";
+      //     winContainer.style.display = "block";
+      //     guesses.textContent = "That is correct!!!";
+      //     guesses2.textContent =
+      //       "It took you " + guessTracker + " guesses to get it.";
+      //     winContainer.appendChild(guesses);
+      //     winContainer.appendChild(guesses2);
+      //     resetBtn.textContent = "Reset";
+      //     winContainer.appendChild(resetBtn);
+      //   } else {
+      //     guess.style.color = "red";
+      //     guessTracker++;
+      //     while (trackerContainer.firstChild) {
+      //       trackerContainer.removeChild(trackerContainer.firstChild);
+      //     }
+      //     guesses.textContent = "You have guessed " + guessTracker + " times.";
+      //     trackerContainer.appendChild(guesses);
+      //     console.log("nope");
+      //   }
+      // });
+
+      // resetBtn.addEventListener("click", function () {
+      //   gameContainer.style.display = "none";
+      //   winContainer.style.display = "none";
+      //   landContainer.style.display = "";
+      //   while (winContainer.firstChild) {
+      //     winContainer.removeChild(winContainer.firstChild);
+      //   }
+      //   const resetColor = document.querySelectorAll(".numbers");
+      //   for (i = 0; i < resetColor.length; i++) {
+      //     resetColor[i].style.color = "blue";
+      //   }
+      //   guessTracker = 0;
+      // });
+    </script>
+  </body>
+</html>

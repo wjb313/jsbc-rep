@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Random Number Guessing Game</title>
+
+    <meta
+      name="description"
+      content="This applet asks the user to guess a randomly generated number between zero and thirty"
+    />
+    <meta name="author" content="wjb" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="styles/style.css"
+      media="screen"
+    /> -->
+    <!--<link rel="stylesheet" type="text/css" href="styles/narrow-style.css" media="screen and (max-width: 515px)"/>-->
+    <style>
+      .flexbox1 {
+        display: flex;
+        width: 500px;
+        padding: 10px;
+        margin-bottom: 5px;
+        border: 2px dotted goldenrod;
+      }
+
+      .flexbox2 {
+        display: flex;
+        width: 500px;
+        padding: 10px;
+        margin-top: 5px;
+        border: 2px dotted goldenrod;
+      }
+
+      .fb1-sub {
+        flex: 1 1 auto;
+        color: wheat;
+        background-color: cadetblue;
+        border: 2px solid rgb(49, 115, 238);
+        border-radius: 5px;
+      }
+
+      .fb2-sub {
+        width: min-content
+        color: wheat;
+        background-color: cadetblue;
+        border: 2px solid rgb(49, 115, 238);
+        border-radius: 5px;
+      }
+
+      .grid1 {
+        display: grid;
+        grid-template-columns: repeat(4, fit-content(30ch));
+        width: 500px;
+        padding: 10px;
+        margin-bottom: 5px;
+        border: 2px dotted goldenrod;
+      }
+
+      .grid1-sub {
+        color: wheat;
+        background-color: cadetblue;
+        border: 2px solid rgb(49, 115, 238);
+        border-radius: 5px;
+      }
+
+
+      .grid2 {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        grid-gap: 10px;
+        width: 500px;
+        padding: 10px;
+        margin-bottom: 5px;
+        border: 2px dotted goldenrod;
+      }
+
+      .grid2-sub {
+        color: wheat;
+        background-color: cadetblue;
+        border: 2px solid rgb(49, 115, 238);
+        border-radius: 5px;
+      }
+
+      .grid3 {
+        display: grid;
+        grid-template-columns: [sidebar-start] 1fr [asshat-start sidebar-end] 1fr 1fr 1fr 1fr [asshat-end] 1fr;
+        grid-template-rows: [header-start] 100px [asshat-start header-end sidebar-start] 100px 100px 100px [asshat-end] 100px [sidebar-end];
+        grid-template-areas: 'head head head head head head';
+        border: 2px dotted goldenrod;
+      }
+
+      .grid3-main {
+        /* grid-column: asshat-jagoff / asshat-fucktard;
+        grid-row: asshat-jagoff / asshat-fucktard; */
+        grid-area: asshat;
+        color: wheat;
+        background-color: cadetblue;
+        border: 2px solid rgb(49, 115, 238);
+        border-radius: 5px;
+      }
+
+      .grid3-side {
+        grid-column: sidebar-start / sidebar-end;
+        grid-row: sidebar-start / sidebar-end;
+        color: wheat;
+        background-color: rgb(95, 160, 138);
+        border: 2px solid rgb(49, 115, 238);
+        border-radius: 5px;
+      }
+
+      .grid3-head {
+        grid-area: head;
+        color: wheat;
+        background-color: rgb(185, 17, 115);
+        border: 2px solid rgb(141, 2, 141);
+        border-radius: 5px;
+      }
+
+       .grid3-post {
+        grid-column-start: asshat-end;
+        grid-row-start: header-end;
+        color: wheat;
+        background-color: rgb(185, 17, 115);
+        border: 2px solid rgb(141, 2, 141);
+        border-radius: 5px;
+      }
+
+      .grid2-sub.span2 {
+        grid-column: auto / span 2;
+      }
+
+      .grid2-sub.span3 {
+        grid-column: auto /span 3;
+      }
+
+      .grid2-sub.span4 {
+        grid-column: auto /span 4;
+      }
+
+      .fixed-width {
+        width: 20em;
+        border: 5px solid red;
+        margin-bottom: 2em;
+      }
+
+      .box {
+        width: max-content;
+        /* padding: 10px; */
+        border: 5px dotted pink;
+        /* margin-bottom: 2em; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Random Number Guessing Game</h1>
+    </header>
+    <div class="fixed-width">
+      <div class="box">
+        I am a string of text that is going to get bigger or smaller depending
+        on what's going on
+      </div>
+    </div>
+    <div class="flexbox1">
+      <div class="fb1-sub">Item 1</div>
+      <div class="fb1-sub">Item 2</div>
+      <div class="fb1-sub">Item 3</div>
+      <div class="fb1-sub">Item 4</div>
+    </div>
+    <div class="flexbox2">
+      <div class="fb2-sub">Item 2.1</div>
+      <div class="fb2-sub">Item 2.2</div>
+      <div class="fb2-sub">Item 2.3</div>
+      <div class="fb2-sub">
+        Item 2.4 has much more text in it than the other items in this flexbox
+      </div>
+    </div>
+    <div class="grid1">
+      <div class="grid1-sub">Item 4.1</div>
+      <div class="grid1-sub">Item 4.2</div>
+      <div class="grid1-sub">Item 4.3</div>
+      <div class="grid1-sub">
+        Item 4.4 has much more text in it than the other items in this flexbox
+      </div>
+      <div class="grid1-sub">Item 4.4</div>
+      <div class="grid1-sub">Item 4.5</div>
+      <div class="grid1-sub">Item 4.6</div>
+      <div class="grid1-sub">Item 4.7</div>
+      <div class="grid1-sub">Item 4.8</div>
+    </div>
+    <div class="grid2">
+      <div class="grid2-sub">1</div>
+      <div class="grid2-sub">2</div>
+      <div class="grid2-sub">3</div>
+      <div class="grid2-sub">4</div>
+      <div class="grid2-sub">5</div>
+      <div class="grid2-sub">6</div>
+      <div class="grid2-sub">7</div>
+      <div class="grid2-sub">8</div>
+      <div class="grid2-sub">9</div>
+      <div class="grid2-sub">10</div>
+      <div class="grid2-sub">11</div>
+      <div class="grid2-sub">12</div>
+      <div class="grid2-sub">13</div>
+      <div class="grid2-sub span2">14</div>
+      <div class="grid2-sub span3">15</div>
+      <div class="grid2-sub span4">16</div>
+    </div>
+    <div class="grid3">
+      <div class="grid3-head"></div>
+      <div class="grid3-side"></div>
+      <div class="grid3-main"></div>
+      <div class="grid3-post"></div>
+    </div>
+    <script>
+      const stringTest = "rotor";
+
+      let paliFinder = function (string) {
+        let lowerString = string.toLowerCase();
+        let finalString = lowerString.replace(/ /g, "");
+        let stringLength = finalString.length;
+        console.log(lowerString);
+        console.log(finalString);
+        console.log(stringLength);
+        if (stringLength > 1) {
+          if (finalString[0] === finalString[stringLength - 1]) {
+            console.log(finalString.substring(1, stringLength - 1));
+            paliFinder(finalString.substring(1, stringLength - 1));
+          } else {
+            console.log("Not a palindrome");
+          }
+        } else {
+          console.log("Yep, it is a palindrome!");
+        }
+      };
+
+      paliFinder("Madam Im Adam");
+    </script>
+  </body>
+</html>

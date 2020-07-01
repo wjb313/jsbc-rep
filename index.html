@@ -1,112 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8">
+    <title>Random Number Guessing Game</title>
 
-  <title>Selection Sort</title>
+    <meta
+      name="description"
+      content="This applet asks the user to guess a randomly generated number between zero and thirty"
+    />
+    <meta name="author" content="wjb" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="description"
-    content="This applet allows the user to covert temperature values between centigrade and fahrenheit">
-  <meta name="author" content="wjb">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="styles/style.css"
+      media="screen"
+    />
+    <!--<link rel="stylesheet" type="text/css" href="styles/narrow-style.css" media="screen and (max-width: 515px)"/>-->
+  </head>
 
-  <!--<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="styles/narrow-style.css" media="screen and (max-width: 515px)"/>-->
-</head>
+  <body>
+    <div class="landPage">
+      <div class="landPageDesc">
+        <h1>Random Number Guessing Game</h1>
+        <h3>
+          This is a guessing game in which a random number between 1-30 will be
+          generated and the player will be given unlimited opportunities to
+          guess the number.
+        </h3>
+        <h4>
+          Each time you guess incorrectly, the guessed number will turn
+          <span class="redR">r</span><span class="redE">e</span
+          ><span class="redD">d</span> and change to a prompt that lets you know
+          if your guess was too high or too low.<br />
+        </h4>
+        <h4>
+          Once you've guessed correctly you will be shown how many guesses you
+          have made.
+        </h4>
+      </div>
+      <div class="landPageLaunch">
+        <h3>
+          Click the button below to generate a random number and get started
+          guessing!
+        </h3>
+        <button id="launchBtn">Let's play!</button>
+      </div>
+    </div>
+    <div class="gamePageWrapper">
+      <div class="gamePage">
+        <div class="gamePageHeader">
+          Click on a number below to guess. Each time you click your number of
+          guesses will be displayed in the section below.
+        </div>
+        <div class="guessTracker"></div>
+      </div>
+    </div>
 
-<body>
-  <header>
-    <h1>Selection Sort Visualization</h1>
-  </header>
-  <div>
-    <p></p>
-  </div>
+    <div class="winPage">
+      <div id="winPageCorrect">Correct!!!</div>
+      <div id="winPageGuess"></div>
+      <button id="resetBtn">Reset</button>
+    </div>
+    <script>
+      // Define constants for manipulating DOM
 
-  <script>
+      const gamePage = document.querySelector(".gamePage");
+      const landPage = document.querySelector(".landPage");
+      const guessTracker = document.querySelector(".guessTracker");
+      const winPage = document.querySelector(".winPage");
+      const launchBtn = document.querySelector("#launchBtn");
+      const resetBtn = document.querySelector("#resetBtn");
+      const gamePageWrapper = document.querySelector(".gamePageWrapper");
+      const winPageGuess = document.querySelector("#winPageGuess");
 
-    const div = document.querySelector('div');
+      const sayHellowLinting = (fname) => {
+        console.log("balls");
+      };
 
-
-    /*(var displayArray = function(array) {
-    textFont(createFont("monospace"), 12);
-    };*/
-
-    var swap = function (array, firstIndex, secondIndex) {
-      var temp = array[firstIndex];
-      array[firstIndex] = array[secondIndex];
-      array[secondIndex] = temp;
-    };
-
-    var indexOfMinimum = function (array, startIndex) {
-
-      var minValue = array[startIndex];
-      var minIndex = startIndex;
-      for (var i = minIndex + 1; i < array.length; i++) {
-        if (array[i] < minValue) {
-          minIndex = i;
-          minValue = array[i];
+      // Define function for populating grid with number range
+      const range = function (start, end) {
+        for (i = start; i <= end; i++) {
+          const gridBox = document.createElement("div");
+          gridBox.textContent = i;
+          gridBox.id = "number" + i;
+          gridBox.className = "numbers";
+          gamePage.appendChild(gridBox);
         }
-      }
-      return minIndex;
+      };
 
-    };
+      range(1, 30);
 
-    var selectionSort = function (array) {
-      var minIndex;
+      // Declare variable for holding random number
+      let randomNumber;
 
-      for (var startIndex = 0; startIndex < array.length; startIndex++) {
-        const para = document.createElement('p');
-        para.textContent = array;
-        div.appendChild(para);
-        minIndex = indexOfMinimum(array, startIndex);
-        swap(array, startIndex, minIndex);
+      // Define function for generating random number
+      const generateNumber = function (maxNum, minNum) {
+        randomNumber = Math.floor(
+          Math.random() * (maxNum - minNum + 1) + minNum
+        );
+        console.log(randomNumber);
+      };
 
-      }
-    };
+      // Handle button click to generate random number and launch gamePage
+      launchBtn.addEventListener("click", function () {
+        generateNumber(1, 30);
+        landPage.style.display = "none";
+        gamePageWrapper.style.display = "flex";
+        gamePage.style.display = "grid";
+      });
 
+      // Handle guesses when number is clicked
+      let guessCount = 0;
 
-    var array = [22, 11, 99, 88, 9, 7, 42];
-    selectionSort(array);
+      gamePage.addEventListener("click", function (e) {
+        let guessCurrent = e.target;
+        let guessCurrentNumber = parseInt(guessCurrent.textContent);
 
-    //Start second array
-    var swap = function (array, firstIndex, secondIndex) {
-      var temp = array[firstIndex];
-      array[firstIndex] = array[secondIndex];
-      array[secondIndex] = temp;
-    };
+        if (guessCurrent.className === "numbers") {
+          // Limit scope of clicks to actual numbers, not the grid outside the numbers
+          if (guessCurrentNumber === randomNumber) {
+            // Handle correct guess
+            // Increment the guess tracker
+            guessCount++;
 
-    var indexOfMinimum = function (array, startIndex) {
+            // Switch from gamePage to winPage
+            gamePage.style.display = "none";
+            gamePageWrapper.style.display = "none";
+            winPage.style.display = "flex";
 
-      var minValue = array[startIndex];
-      var minIndex = startIndex;
-      for (var i = minIndex + 1; i < array.length; i++) {
-        if (array[i] > minValue) {
-          minIndex = i;
-          minValue = array[i];
+            // Populate text telling how many guesses it took
+            winPageGuess.textContent =
+              "It took you " + guessCount + " guesses.";
+          } else if (guessCurrentNumber > randomNumber) {
+            // Handle high guess
+            // Increment the guess tracker
+            guessCount++;
+
+            // Change grid box content to notify high guess and turn red
+            guessCurrent.textContent = "Too High";
+            guessCurrent.style.color = "red";
+
+            // Clear out any existing child element to prep for writing new
+            while (guessTracker.firstChild) {
+              guessTracker.removeChild(guessTracker.firstChild);
+            }
+
+            // Set grammar to deal with single or plural guesses
+            if (guessCount === 1) {
+              guessTracker.textContent =
+                "You have guessed " + guessCount + " time.";
+              /*guessTracker.appendChild(guesses);*/
+            } else {
+              guessTracker.textContent =
+                "You have guessed " + guessCount + " times.";
+              // guessTracker.appendChild(guesses);
+              console.log("nope");
+            }
+          } else {
+            // Handle low guess
+            // Increment the guess tracker
+            guessCount++;
+
+            //Change grid box content to notify low guess and turn red
+            guessCurrent.textContent = "Too Low";
+            guessCurrent.style.color = "red";
+
+            // Clear out any existing child element to prep for writing new
+            while (guessTracker.firstChild) {
+              guessTracker.removeChild(guessTracker.firstChild);
+            }
+
+            // Set grammar to deal with single or plural guesses
+            if (guessCount === 1) {
+              guessTracker.textContent =
+                "You have guessed " + guessCount + " time.";
+              // guessTracker.appendChild(guesses);
+            } else {
+              guessTracker.textContent =
+                "You have guessed " + guessCount + " times.";
+              // guessTracker.appendChild(guesses);
+            }
+          }
         }
-      }
-      return minIndex;
+      });
 
-    };
+      // Reveal button based on animationend event firing in winPage
+      const showBtn = document.querySelector("#winPageGuess");
 
-    var selectionSort = function (array) {
-      var minIndex;
+      showBtn.addEventListener("animationend", function () {
+        resetBtn.style.opacity = 1;
+      });
 
-      for (var startIndex = 0; startIndex < array.length; startIndex++) {
-        const para = document.createElement('p');
-        para.textContent = array;
-        div.appendChild(para);
-        minIndex = indexOfMinimum(array, startIndex);
-        swap(array, startIndex, minIndex);
+      showBtn.addEventListener("webkitAnimationEnd", function () {
+        resetBtn.style.opacity = 1;
+      });
 
-      }
-    };
+      // Reset game for new play
+      resetBtn.addEventListener("click", function () {
+        // Switch from winPage to landpage gamePage.style.display = "none";
+        winPage.style.display = "none";
+        resetBtn.style.opacity = "0";
+        landPage.style.display = "";
 
+        // Reset all grid box contents back to numbers and original colors
+        const resetColor = document.querySelectorAll(".numbers");
+        for (i = 0; i < resetColor.length; i++) {
+          resetColor[i].style.color = "blue";
+        }
 
-    var array = [22, 11, 99, 88, 9, 7, 42];
-    selectionSort(array);
-  </script>
-</body>
+        range(1, 30);
 
+        // Clear text from guess tracker box
+        guessTracker.textContent = "";
+
+        // Reset guessCount to 0
+        guessCount = 0;
+      });
+    </script>
+  </body>
 </html>
