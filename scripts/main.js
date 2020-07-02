@@ -1,41 +1,147 @@
-const scene = new THREE.Scene();
+// Define constants for manipulating DOM
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+const gamePage = document.querySelector(".gamePage");
+const landPage = document.querySelector(".landPage");
+const guessTracker = document.querySelector(".guessTracker");
+const winPage = document.querySelector(".winPage");
+const launchBtn = document.querySelector("#launchBtn");
+const resetBtn = document.querySelector("#resetBtn");
+const gamePageWrapper = document.querySelector(".gamePageWrapper");
+const winPageGuess = document.querySelector("#winPageGuess");
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+const sayHellowLinting = (fname) => {
+  console.log("balls");
+};
 
-let cube;
+// Define function for populating grid with number range
+const range = function (start, end) {
+  for (i = start; i <= end; i++) {
+    const gridBox = document.createElement("div");
+    gridBox.textContent = i;
+    gridBox.id = "number" + i;
+    gridBox.className = "numbers";
+    gamePage.appendChild(gridBox);
+  }
+};
 
-let loader = new THREE.TextureLoader();
+range(1, 30);
 
-loader.load( 'metal003.png', function (texture) {
-	texture.wrapS = THREE.RepeatWrapping;
-	texture.wrapT = THREE.RepeatWrapping;
-	texture.repeat.set(2, 2);
+// Declare variable for holding random number
+let randomNumber;
 
-	let geometry = new THREE.BoxGeometry(2.4,2.4,2.4);
-	let material = new THREE.MeshLambertMaterial( { map: texture, shading: THREE.FlatShading } );
-	cube = new THREE.Mesh(geometry, material);
-	scene.add(cube);
+// Define function for generating random number
+const generateNumber = function (maxNum, minNum) {
+  randomNumber = Math.floor(Math.random() * (maxNum - minNum + 1) + minNum);
+  console.log(randomNumber);
+};
 
-	draw();
+// Handle button click to generate random number and launch gamePage
+launchBtn.addEventListener("click", function () {
+  generateNumber(1, 30);
+  landPage.style.display = "none";
+  gamePageWrapper.style.display = "flex";
+  gamePage.style.display = "grid";
 });
 
-let light = new THREE.AmbientLight('rgb(255,255,255)'); // soft white light
-scene.add(light);
+// Handle guesses when number is clicked
+let guessCount = 0;
 
-let spotLight = new THREE.SpotLight('rgb(255,255,255)');
-spotLight.position.set( 100, 1000, 1000 );
-spotLight.castShadow = true;
-scene.add(spotLight);
+gamePage.addEventListener("click", function (e) {
+  let guessCurrent = e.target;
+  let guessCurrentNumber = parseInt(guessCurrent.textContent);
 
-function draw() {
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  renderer.render(scene, camera);
+  if (guessCurrent.className === "numbers") {
+    // Limit scope of clicks to actual numbers, not the grid outside the numbers
+    if (guessCurrentNumber === randomNumber) {
+      // Handle correct guess
+      // Increment the guess tracker
+      guessCount++;
 
-	requestAnimationFrame(draw);
-}
+      // Switch from gamePage to winPage
+      gamePage.style.display = "none";
+      gamePageWrapper.style.display = "none";
+      winPage.style.display = "flex";
+
+      // Populate text telling how many guesses it took
+      winPageGuess.textContent = "It took you " + guessCount + " guesses.";
+    } else if (guessCurrentNumber > randomNumber) {
+      // Handle high guess
+      // Increment the guess tracker
+      guessCount++;
+
+      // Change grid box content to notify high guess and turn red
+      guessCurrent.textContent = "Too High";
+      guessCurrent.style.color = "red";
+
+      // Clear out any existing child element to prep for writing new
+      while (guessTracker.firstChild) {
+        guessTracker.removeChild(guessTracker.firstChild);
+      }
+
+      // Set grammar to deal with single or plural guesses
+      if (guessCount === 1) {
+        guessTracker.textContent = "You have guessed " + guessCount + " time.";
+        /*guessTracker.appendChild(guesses);*/
+      } else {
+        guessTracker.textContent = "You have guessed " + guessCount + " times.";
+        // guessTracker.appendChild(guesses);
+        console.log("nope");
+      }
+    } else {
+      // Handle low guess
+      // Increment the guess tracker
+      guessCount++;
+
+      //Change grid box content to notify low guess and turn red
+      guessCurrent.textContent = "Too Low";
+      guessCurrent.style.color = "red";
+
+      // Clear out any existing child element to prep for writing new
+      while (guessTracker.firstChild) {
+        guessTracker.removeChild(guessTracker.firstChild);
+      }
+
+      // Set grammar to deal with single or plural guesses
+      if (guessCount === 1) {
+        guessTracker.textContent = "You have guessed " + guessCount + " time.";
+        // guessTracker.appendChild(guesses);
+      } else {
+        guessTracker.textContent = "You have guessed " + guessCount + " times.";
+        // guessTracker.appendChild(guesses);
+      }
+    }
+  }
+});
+
+// Reveal button based on animationend event firing in winPage
+const showBtn = document.querySelector("#winPageGuess");
+
+showBtn.addEventListener("animationend", function () {
+  resetBtn.style.opacity = 1;
+});
+
+showBtn.addEventListener("webkitAnimationEnd", function () {
+  resetBtn.style.opacity = 1;
+});
+
+// Reset game for new play
+resetBtn.addEventListener("click", function () {
+  // Switch from winPage to landpage gamePage.style.display = "none";
+  winPage.style.display = "none";
+  resetBtn.style.opacity = "0";
+  landPage.style.display = "";
+
+  // Reset all grid box contents back to numbers and original colors
+  const resetColor = document.querySelectorAll(".numbers");
+  for (i = 0; i < resetColor.length; i++) {
+    resetColor[i].style.color = "blue";
+  }
+
+  range(1, 30);
+
+  // Clear text from guess tracker box
+  guessTracker.textContent = "";
+
+  // Reset guessCount to 0
+  guessCount = 0;
+});
